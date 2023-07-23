@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 
 app_name = 'gis'
@@ -21,7 +22,9 @@ app_name = 'gis'
 urlpatterns = [
     path('', views.data_entry_view, name='home'),
     path('data-entry/', views.data_entry_view, name='data_entry'),
+    path('map/', TemplateView.as_view(template_name='map.html'), name='map'),  # New URL pattern for the map
     # Add more URL patterns if needed
 ]
+
 
 

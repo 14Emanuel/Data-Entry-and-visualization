@@ -10,23 +10,25 @@ def data_entry_view(request):
         gis = request.POST['gis']
         plus_code = request.POST['plusCode']
         nearby_location = request.POST['nearbyLocation']
-        type_of_item = request.POST['typeOfItem']
-        status = request.POST['status']
-        
+
         # Read photos and videos as base64-encoded strings
         photos_file = request.FILES.get('photos')
         videos_file = request.FILES.get('videos')
-        
+
         if photos_file:
             photos_base64 = base64.b64encode(photos_file.read()).decode('utf-8')
         else:
             photos_base64 = None
-            
+
         if videos_file:
             videos_base64 = base64.b64encode(videos_file.read()).decode('utf-8')
         else:
             videos_base64 = None
-        
+
+        type_of_item = request.POST['typeOfItem']
+        status = request.POST['status']
+
+
         # Create the NavigationEntry instance and save it to the database
         navigation_entry = NavigationEntry(
             sno=sno,
@@ -41,7 +43,7 @@ def data_entry_view(request):
             status=status
         )
         navigation_entry.save()
-        
+
         return redirect('/')  # Replace '/' with the actual URL of the data entry page
     else:
         return render(request, 'data_entry_ui.html')

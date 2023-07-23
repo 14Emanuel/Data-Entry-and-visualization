@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@ychp-e-k&cpbvv*@bum8)t$qmf+f)&updf5umxn-@5-_yf3d%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['dinudashilua.pythonanywhere.com']
 
 
 
@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'gis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'gis',
-        
+        'NAME': 'dummy',
+
     }
 }
 
