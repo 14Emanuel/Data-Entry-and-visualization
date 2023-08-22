@@ -86,7 +86,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'dummy',
-
+        'CLIENT': {
+            'host': 'mongodb+srv://dummy:code@cluster0.nqhzqof.mongodb.net/?retryWrites=true&w=majority'  # Replace with your MongoDB URI
+        },
     }
 }
 

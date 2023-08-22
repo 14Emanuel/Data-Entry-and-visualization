@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Status Update</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 8px;
+    }
+
+    h1 {
+      font-size: 20px;
+      text-align: center;
+      color: #3453ed; /* Blue color for the heading */
+    }
+
+    .container {
+      display: flex;
+      max-width: 1200px; /* Increase the width to 1.5 times its current size */
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+      margin: 0 auto; /* Center the form on the page */
+    }
+
+    .column1 {
+      flex: 1;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      font-size: 14px;
+      color: #0b0b0b; /* Blue color for labels */
+      margin-right: 10px; /* Add some spacing between the label and value */
+    }
+
+    .form-group .value {
+      display: flex;
+      align-items: center;
+    }
+
+    .form-group .value span {
+      margin-right: 10px; /* Add some spacing between the value and link */
+      color: #000; /* Black text color for values */
+    }
+
+    .form-group .value input {
+      /* Input-like box style */
+      padding: 3px 6px; /* Reduce size by 25% */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      color: #000; /* Black text color for input values */
+    }
+
+    .form-group .value a {
+      color: #3453ed; /* Blue color for update details link */
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .column2 {
+      flex: 1;
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .column2 img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .column2 .image-name {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .column2 .update-image-link {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .column2 .update-image-link a {
+      color: #3453ed;
+      text-decoration: none;
+    }
+
+    .column2 video {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .column2 .video-name {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .column2 .update-video-link {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .column2 .update-video-link a {
+      color: #3453ed;
+      text-decoration: none;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+    }
+
+    .popup h2 {
+      margin-top: 0;
+    }
+
+    .close-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Status Update</h1>
+  <div class="container">
+    <div class="column1">
+      <div class="form-group">
+        <label for="sno">SNO:</label>
+        <div class="value">
+          <!-- Populate value for SNO from entry -->
+          <input type="text" value="{{ entry.sno }}" readonly>
+          <a onclick="openPopup('sno')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="uniqueID">Unique ID:</label>
+        <div class="value">
+          <!-- Populate value for Unique ID from entry -->
+          <input type="text" value="{{ entry.unique_id }}" readonly>
+          <a onclick="openPopup('uniqueID')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="coordinates">GIS Coordinates:</label>
+        <div class="value">
+          <!-- Updated value for GIS Coordinates -->
+          <input type="text" value="{{ entry.coordinates }}" readonly>
+          <a onclick="openPopup('coordinates')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="gis">GIS:</label>
+        <div class="value">
+          <!-- Updated value for GIS -->
+          <input type="text" value="{{ entry.gis }}" readonly>
+          <a onclick="openPopup('gis')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="plusCode">PLUS CODE:</label>
+        <div class="value">
+          <!-- Updated value for PLUS CODE -->
+          <input type="text" value="{{ entry.plus_code }}" readonly>
+          <a onclick="openPopup('plusCode')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nearbyRailwayAddress">Nearby Railway Address:</label>
+        <div class="value">
+          <!-- Updated value for Nearby Railway Address -->
+          <input type="text" value="{{ entry.nearby_railway_address }}" readonly>
+          <a onclick="openPopup('nearbyRailwayAddress')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nearbyRailwayStation">Nearby Railway Station:</label>
+        <div class="value">
+          <!-- Updated value for Nearby Railway Station -->
+          <input type="text" value="{{ entry.nearby_railway_station }}" readonly>
+          <a onclick="openPopup('nearbyRailwayStation')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="typeOfItem">Type of Item:</label>
+        <div class="value">
+          <!-- Updated value for Type of Item -->
+          <input type="text" value="{{ entry.type_of_item }}" readonly>
+          <a onclick="openPopup('typeOfItem')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <div class="value">
+          <!-- Updated value for Status -->
+          <input type="text" value="{{ entry.status }}" readonly>
+          <a onclick="openPopup('status')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="verifiedScrap">Verified as Scrap:</label>
+        <div class="value">
+          <!-- Updated value for Verified as Scrap -->
+          <input type="text" value="{{ entry.verified_scrap }}" readonly>
+          <a onclick="openPopup('verifiedScrap')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pendingDepartment">Pending with Department:</label>
+        <div class="value">
+          <!-- Updated value for Pending with Department -->
+          <input type="text" value="{{ entry.pending_department }}" readonly>
+          <a onclick="openPopup('pendingDepartment')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lotNoEngineering">Lot No Engineering:</label>
+        <div class="value">
+          <!-- Updated value for Lot No Engineering -->
+          <input type="text" value="{{ entry.lot_no_engineering }}" readonly>
+          <a onclick="openPopup('lotNoEngineering')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lotNoStores">Lot No Stores:</label>
+        <div class="value">
+          <!-- Updated value for Lot No Stores -->
+          <input type="text" value="{{ entry.lot_no_stores }}" readonly>
+          <a onclick="openPopup('lotNoStores')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="auctionDate">Auction Date Given:</label>
+        <div class="value">
+          <!-- Updated value for Auction Date Given -->
+          <input type="text" value="{{ entry.auction_date_given }}" readonly>
+          <a onclick="openPopup('auctionDate')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fdpEnds">FDP Ends:</label>
+        <div class="value">
+          <!-- Updated value for FDP Ends -->
+          <input type="text" value="{{ entry.fdp_date }}" readonly>
+          <a onclick="openPopup('fdpEnds')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phoneNo">Phone No:</label>
+        <div class="value">
+          <!-- Updated value for Phone No -->
+          <input type="text" value="{{ entry.phone_no }}" readonly>
+          <a onclick="openPopup('phoneNo')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="custodian">Custodian:</label>
+        <div class="value">
+          <!-- Updated value for Custodian -->
+          <input type="text" value="{{ entry.custodian }}" readonly>
+          <a onclick="openPopup('custodian')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="approxWeight">Approximate Weight:</label>
+        <div class="value">
+          <!-- Updated value for Approximate Weight -->
+          <input type="text" value="{{ entry.approx_weight }}" readonly>
+          <a onclick="openPopup('approxWeight')">Update Details</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="approxRate">Approximate Rate:</label>
+        <div class="value">
+          <!-- Updated value for Approximate Rate -->
+          <input type="text" value="{{ entry.approx_rate }}" readonly>
+          <a onclick="openPopup('approxRate')">Update Details</a>
+        </div>
+      </div>
+
+
+    <!-- Image and Video sections -->
+    </div>
+    <div class="column2">
+      <!-- Image Section -->
+      <img src="data:image/jpeg;base64,{{ entry.photos }}" alt="Photo">
+      <!--<div class="image-name">Image Name</div>-->
+      <div class="update-image-link">
+        <a href="#" onclick="openImagePopup()">Update Image</a>
+      </div>
+
+
+      <!-- Video Section -->
+      <video controls>
+        <source src="data:video/mp4;base64,{{ entry.videos }}" type="video/mp4">
+
+      </video>
+      <!--<div class="video-name">Video Name</div>-->
+      <div class="update-video-link">
+        <a href="#" onclick="openVideoPopup()">Update Video</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Details Popup -->
+<div class="popup" id="updatePopup">
+  <span class="close-icon" onclick="closePopup()">&times;</span>
+  <h2 id="popupFieldTitle">Update Data</h2>
+  <div class="form-group">
+    <div class="value">
+      <input type="text" id="field1" placeholder="updated data">
+    </div>
+  </div>
+  <div class="submit-group">
+    <button class="ok-button" onclick="submitUpdatedData()">OK</button>
+  </div>
+</div>
+
+ <!-- Update Image Popup -->
+ <div class="popup" id="updateImagePopup">
+  <span class="close-icon" onclick="closeImagePopup()">&times;</span>
+  <h2>Update Image</h2>
+  <div class="form-group">
+    <div class="value">
+      <input type="file" id="updateImageInput" accept="image/*">
+    </div>
+  </div>
+  <div class="submit-group">
+    <button class="ok-button" onclick="submitUpdatedImage()">OK</button>
+  </div>
+</div>
+
+<!-- Update Video Popup -->
+ <div class="popup" id="updateVideoPopup">
+  <span class="close-icon" onclick="closeVideoPopup()">&times;</span>
+  <h2>Update Video</h2>
+  <div class="form-group">
+    <div class="value">
+      <input type="file" id="updateVideoInput" accept="video/*">
+    </div>
+  </div>
+  <div class="submit-group">
+    <button class="ok-button" onclick="submitUpdatedVideo()">OK</button>
+  </div>
+</div>
+
+
+<script>
+  function openPopup(field) {
+    var popup = document.getElementById('updatePopup');
+    var popupFieldTitle = document.getElementById('popupFieldTitle');
+
+    // Update the title of the popup based on the field parameter
+    switch (field) {
+      case 'sno':
+        popupFieldTitle.textContent = 'SNO Update';
+        break;
+      case 'uniqueID':
+        popupFieldTitle.textContent = 'Unique ID Update';
+        break;
+      case 'coordinates':
+        popupFieldTitle.textContent = 'GIS Coordinates Update';
+        break;
+      case 'gis':
+        popupFieldTitle.textContent = 'GIS Update';
+        break;
+      case 'plusCode':
+        popupFieldTitle.textContent = 'PLUS CODE Update';
+        break;
+      case 'nearbyRailwayAddress':
+        popupFieldTitle.textContent = 'Nearby Railway Address Update';
+        break;
+      case 'nearbyRailwayStation':
+        popupFieldTitle.textContent = 'Nearby Railway Station Update';
+        break;
+      case 'photos':
+        popupFieldTitle.textContent = 'Photos Update';
+        break;
+      case 'videos':
+        popupFieldTitle.textContent = 'Videos Update';
+        break;
+      case 'typeOfItem':
+        popupFieldTitle.textContent = 'Type of Item Update';
+        break;
+      case 'status':
+        popupFieldTitle.textContent = 'Status Update';
+        break;
+      case 'itemName':
+        popupFieldTitle.textContent = 'Name of Item Update';
+        break;
+      case 'verifiedScrap':
+        popupFieldTitle.textContent = 'Verified as Scrap Update';
+        break;
+      case 'pendingDepartment':
+        popupFieldTitle.textContent = 'Pending with Department Update';
+        break;
+      case 'lotNoEngineering':
+        popupFieldTitle.textContent = 'Lot No Engineering Update';
+        break;
+      case 'lotNoStores':
+        popupFieldTitle.textContent = 'Lot No Stores Update';
+        break;
+      case 'auctionDate':
+        popupFieldTitle.textContent = 'Auction Date Given Update';
+        break;
+      case 'fdpEnds':
+        popupFieldTitle.textContent = 'FDP Ends Update';
+        break;
+      case 'phoneNo':
+        popupFieldTitle.textContent = 'Phone No Update';
+        break;
+      case 'custodian':
+        popupFieldTitle.textContent = 'Custodian Update';
+        break;
+      case 'approxWeight':
+        popupFieldTitle.textContent = 'Approximate Weight Update';
+        break;
+      case 'approxRate':
+        popupFieldTitle.textContent = 'Approximate Rate Update';
+        break;
+      default:
+        popupFieldTitle.textContent = 'Update Data';
+        break;
+    }
+
+    popup.style.display = 'block';
+  }
+
+  function closePopup() {
+    var popup = document.getElementById('updatePopup');
+    popup.style.display = 'none';
+  }
+
+  // New functions for image update pop-up
+  function openImagePopup() {
+    var imagePopup = document.getElementById('updateImagePopup');
+    imagePopup.style.display = 'block';
+  }
+
+  function closeImagePopup() {
+    var imagePopup = document.getElementById('updateImagePopup');
+    imagePopup.style.display = 'none';
+  }
+
+  // New function for submitting updated image
+  function submitUpdatedImage() {
+    var updatedImageInput = document.getElementById('updateImageInput');
+    var updatedImage = updatedImageInput.files[0];
+
+    // Here you can handle the image update, for example, uploading it to a server or saving it locally.
+    // You can use JavaScript fetch or XMLHttpRequest to send the image data to the server.
+
+    // After handling the image update, you can close the pop-up.
+    closeImagePopup();
+  }
+
+  // New functions for video update pop-up
+  function openVideoPopup() {
+    var videoPopup = document.getElementById('updateVideoPopup');
+    videoPopup.style.display = 'block';
+  }
+
+  function closeVideoPopup() {
+    var videoPopup = document.getElementById('updateVideoPopup');
+    videoPopup.style.display = 'none';
+  }
+
+// New function for submitting updated image
+function submitUpdatedVideo() {
+  var updatedVideoInput = document.getElementById('updateVideoInput');
+  var updatedVideo = updatedVideoInput.files[0];
+
+  // Here you can handle the video update, for example, uploading it to a server or saving it locally.
+  // You can use JavaScript fetch or XMLHttpRequest to send the video data to the server.
+
+  // After handling the video update, you can close the pop-up.
+  closeVideoPopup();
+}
+
+</script>
+
+
+</body>
+</html>
