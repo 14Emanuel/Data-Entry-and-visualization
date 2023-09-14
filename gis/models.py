@@ -1,51 +1,32 @@
-from django.db import models
+from djongo import models
 
 class NavigationEntry(models.Model):
-    sno = models.IntegerField()
+    mongo_id = models.ObjectIdField()
     unique_id = models.CharField(max_length=10)
+    surveyor_id = models.CharField(max_length=20)
     coordinates = models.CharField(max_length=50)
-    gis = models.CharField(max_length=50)
-    plus_code = models.CharField(max_length=100)
-    nearby_railway_address = models.CharField(max_length=50)  # Changed variable name
-    nearby_railway_station = models.CharField(max_length=50)  # New column for Nearby Railway Station
-    photos = models.BinaryField(null=True)
-    videos = models.BinaryField(null=True)
-    type_of_item = models.CharField(max_length=50)
-    status = models.CharField(max_length=50)
-
-    verified_scrap_choices = (
-        ('Yes', 'Yes'),
-        ('No', 'No'),
-        ('NaN', 'NaN'),
-    )
-    verified_scrap = models.CharField(max_length=3, choices=verified_scrap_choices)
-
-    pending_choices = (
-        ('Yes', 'Yes'),
-        ('No', 'No'),
-        ('NaN', 'NaN'),
-    )
-    pending_department = models.CharField(max_length=3, choices=pending_choices)
-
-    lot_no_engineering = models.CharField(max_length=20)
-    lot_no_stores = models.CharField(max_length=20)
-
-    auction_date_given_choices = (
-        ('Yes', 'Yes'),
-        ('No', 'No'),
-        ('NaN', 'NaN'),
-    )
-    auction_date_given = models.CharField(max_length=3, choices=auction_date_given_choices)
-
-    fdp_date = models.CharField(max_length=8)  # Format: ddmmyyyy
-
-    phone_no = models.CharField(max_length=15)  # Update the max length according to your needs
-    custodian = models.CharField(max_length=50)  # Update the max length according to your needs
+    nearby_station = models.CharField(max_length=50)
+    scrap_location = models.CharField(max_length=100)
+    scrap_category = models.CharField(max_length=50)
+    sub_category = models.CharField(max_length=50)
+    scrap_status = models.CharField(max_length=50)
+    verified_scrap = models.CharField(max_length=3, choices=[('Yes', 'Yes'), ('No', 'No')])
+    pending_department = models.CharField(max_length=50)
+    custodian = models.CharField(max_length=50)
+    custodian_contact = models.CharField(max_length=15)
     approx_weight = models.CharField(max_length=10)
     approx_rate = models.CharField(max_length=10)
+    remarks = models.TextField()
 
     def __str__(self):
-        return self.unique_id
+        return str(self.mongo_id)
 
     class Meta:
-        db_table = 'dummy'  # Set the collection name to 'dummy'
+        db_table = 'navigation_entry'
+
+class Image(models.Model):
+    navigation_entry = models.ForeignKey(NavigationEntry, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/')  # Store images on disk
+
+    def __str__(self):
+        return f"Image for {self.navigation_entry.mongo_id}"

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Pane</title>
+    <!-- Add your CSS stylesheets or other head content here if needed -->
+</head>
+<body>
+    <div id="navigation-ui-{{ unique_id }}" class="navigation-ui">
+        <h2>Navigation UI</h2>
+        <p><b>Unique ID:</b> {{ unique_id }}</p>
+        <p><b>Surveryor ID:</b> {{ surveyor_id }}</p>
+        <p><b>Coordinates:</b> {{ coordinates }}</p>
+        <p><b>Nearby Station:</b> {{ nearby_station }}</p>
+        <p><b>Scrap Location:</b> {{ scrap_location }}</p>
+        <p><b>Scrap Category:</b> {{ scrap_category }}</p>
+        <p><b>Sub Category:</b> {{ sub_category }}</p>
+        <p><b>Scrap Status:</b> {{ scrap_status }}</p>
+        <p><b>Verified Scrap:</b> {{ verified_scrap }}</p>
+        <p><b>Pending Department:</b> {{ pending_department }}</p>
+        <p><b>Custodian:</b> {{ custodian }}</p>
+        <p><b>Custodian Contact:</b> {{ custodian_contact }}</p>
+        <p><b>Approximate Weight:</b> {{ approx_weight }}</p>
+        <p><b>Approximate Rate:</b> {{ approx_rate }}</p>
+        <p><b>Remarks:</b> {{ remarks }}</p>
+        <!-- Add image elements here -->
+        {% load static %}
+        {% for image_url in image_urls|slice:":4" %}
+        <img src="{% static image_url %}" alt="Image" width="100" height="100"><br>
+        {% endfor %}
+        <a href="https://dinudashilua.pythonanywhere.com/status_update/{{ unique_id }}/" target="status_update">Status Update</a>
+    </div>
+
+    <!-- Add your JavaScript or other body content here if needed -->
+</body>
+</html>

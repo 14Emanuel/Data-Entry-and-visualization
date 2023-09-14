@@ -9,7 +9,7 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 
 # Access the 'dummy' database and 'dummy' collection
 db = client['dummy']
-collection = db['dummy']
+collection = db['navigation_entry']
 
 def read_all_records_to_xlsx(file_name='dummy_data.xlsx'):
     # Retrieve all records from the collection

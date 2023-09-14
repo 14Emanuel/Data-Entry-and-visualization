@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Navigation Entry</title>
+    <!-- Add any CSS or styling you need here -->
+</head>
+<body>
+    <h1>Update Navigation Entry</h1>
+    
+    <form action="{% url 'update-navigation-entry' navigation_entry.id %}" method="POST">
+        {% csrf_token %}
+        <!-- Include the CSRF token for security -->
+        
+        <div class="form-group">
+            <label for="unique_id">Unique ID:</label>
+            <input type="text" id="unique_id" name="unique_id" value="{{ navigation_entry.unique_id }}" readonly>
+            <a onclick="openPopup('unique_id')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="coordinates">Coordinates:</label>
+            <input type="text" id="coordinates" name="coordinates" value="{{ navigation_entry.coordinates }}" readonly>
+            <a onclick="openPopup('coordinates')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="nearby_station">Nearby Station:</label>
+            <input type="text" id="nearby_station" name="nearby_station" value="{{ navigation_entry.nearby_station }}" readonly>
+            <a onclick="openPopup('nearby_station')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="scrap_location">Scrap Location:</label>
+            <input type="text" id="scrap_location" name="scrap_location" value="{{ navigation_entry.scrap_location }}" readonly>
+            <a onclick="openPopup('scrap_location')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="scrap_category">Scrap Category:</label>
+            <input type="text" id="scrap_category" name="scrap_category" value="{{ navigation_entry.scrap_category }}" readonly>
+            <a onclick="openPopup('scrap_category')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="sub_category">Sub Category:</label>
+            <input type="text" id="sub_category" name="sub_category" value="{{ navigation_entry.sub_category }}" readonly>
+            <a onclick="openPopup('sub_category')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="scrap_status">Scrap Status:</label>
+            <input type="text" id="scrap_status" name="scrap_status" value="{{ navigation_entry.scrap_status }}" readonly>
+            <a onclick="openPopup('scrap_status')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="verified_scrap">Verified Scrap:</label>
+            <input type="text" id="verified_scrap" name="verified_scrap" value="{{ navigation_entry.verified_scrap }}" readonly>
+            <a onclick="openPopup('verified_scrap')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="pending_department">Pending Department:</label>
+            <input type="text" id="pending_department" name="pending_department" value="{{ navigation_entry.pending_department }}" readonly>
+            <a onclick="openPopup('pending_department')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="custodian">Custodian:</label>
+            <input type="text" id="custodian" name="custodian" value="{{ navigation_entry.custodian }}" readonly>
+            <a onclick="openPopup('custodian')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="custodian_contact">Custodian Contact:</label>
+            <input type="text" id="custodian_contact" name="custodian_contact" value="{{ navigation_entry.custodian_contact }}" readonly>
+            <a onclick="openPopup('custodian_contact')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="approx_weight">Approximate Weight:</label>
+            <input type="text" id="approx_weight" name="approx_weight" value="{{ navigation_entry.approx_weight }}" readonly>
+            <a onclick="openPopup('approx_weight')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="approx_rate">Approximate Rate:</label>
+            <input type="text" id="approx_rate" name="approx_rate" value="{{ navigation_entry.approx_rate }}" readonly>
+            <a onclick="openPopup('approx_rate')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <label for="remarks">Remarks:</label>
+            <input type="text" id="remarks" name="remarks" value="{{ navigation_entry.remarks }}" readonly>
+            <a onclick="openPopup('remarks')">Update Details</a>
+        </div>
+
+        <div class="form-group">
+            <button type="submit">Update Entry</button>
+        </div>
+    </form>
+    
+    <!-- Display any error messages or success messages here -->
+    
+    <!-- Add any additional HTML content or styling as necessary -->
+</body>
+</html>

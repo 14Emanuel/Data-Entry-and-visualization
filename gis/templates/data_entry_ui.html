@@ -3,15 +3,58 @@
 <head>
   <title>Data Entry</title>
   <style>
-    body{font-family:Arial,sans-serif;background-color:#f1f1f1;margin:0;padding:8px}
-    h1{font-size:16px;text-align:center}
-    .container{max-width:650px;margin:0 auto;background-color:#fff;padding:10px;border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-    .form-group{display:grid;grid-template-columns:repeat(2, 1fr);margin-bottom:8px}
-    .form-group label{display:block;margin-bottom:2px;font-weight:bold;font-size:12px}
-    .form-group input[type="text"],.form-group input[type="submit"]{width:95%;padding:4px;font-size:12px;border-radius:3px;border:1px solid #ccc}
-    .form-group input[type="submit"]{background-color:#3453ed;color:#fff;border:none;padding:4px 8px;font-size:12px;cursor:pointer}
-    .form-group input[type="submit"]:hover{background-color:#3453ed}
-    .submit-group{grid-column: span 2;}
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 8px;
+    }
+    h1 {
+      font-size: 16px;
+      text-align: center;
+    }
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 8px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 2px;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="submit"],
+    .form-group select {
+      width: 95%;
+      padding: 4px;
+      font-size: 12px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+    .form-group input[type="submit"] {
+      background-color: #3453ed;
+      color: #fff;
+      border: none;
+      padding: 4px 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .form-group input[type="submit"]:hover {
+      background-color: #3453ed;
+    }
+    .submit-group {
+      grid-column: span 2;
+    }
   </style>
 </head>
 <body>
@@ -20,106 +63,155 @@
     <form action="{% url 'data_entry' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-group">
-        <label for="sno">SNO:</label>
-        <input type="text" id="sno" name="sno" required>
-      </div>
-      <div class="form-group">
         <label for="uniqueID">Unique ID:</label>
         <input type="text" id="uniqueID" name="uniqueID" required>
       </div>
       <div class="form-group">
+        <label for="surveyorID">Surveyor ID:</label>
+        <input type="text" id="surveyorID" name="surveyorID" required>
+      </div>
+      <div class="form-group">
         <label for="coordinates">GIS Coordinates:</label>
-        <input type="text" id="coordinates" name="coordinates" required>
+        <input type="text" id="coordinates" name="coordinates" placeholder="e.g. 21.781411;71.517441" required>
       </div>
       <div class="form-group">
-        <label for="gis">GIS:</label>
-        <input type="text" id="gis" name="gis" required>
+        <label for="nearbyStation">Nearby Station:</label>
+        <input type="text" id="nearbyStation" name="nearbyStation" required>
       </div>
       <div class="form-group">
-        <label for="plusCode">PLUS CODE:</label>
-        <input type="text" id="plusCode" name="plusCode" required>
+        <label for="scrapLocation">Scrap Location:</label>
+        <input type="text" id="scrapLocation" name="scrapLocation" required>
       </div>
       <div class="form-group">
-        <label for="nearbyRailwayAddress">Nearby Railway Address:</label>
-        <input type="text" id="nearbyRailwayAddress" name="nearbyRailwayAddress" required>
+        <label for="scrapPictures">Scrap Pictures:</label>
+        <input type="file" id="scrapPictures" name="scrapPictures" accept="image/*" multiple required>
+      </div>
+      <!-- Category Dropdown -->
+      <div class="form-group">
+        <label for="categoryDropdown">Scrap Category:</label>
+        <select id="categoryDropdown" name="categoryDropdown" required>
+          <option value="" disabled selected>Select Scrap Category</option>
+          <option value="DEPOT FERROUS">DEPOT FERROUS</option>
+          <option value="DEPOT NON FERROUS">DEPOT NON FERROUS</option>
+          <option value="DEPOT MISCELLENEOUS">DEPOT MISCELLENEOUS</option>
+          <option value="OTHERS">OTHERS</option>
+          <option value="P-WAY">P-WAY</option>
+          <option value="ROLLING STOCK">ROLLING STOCK</option>
+        </select>
+      </div>
+      <!-- Sub-Category Dropdown -->
+      <div class="form-group">
+        <label for="subCategory">Sub-Category:</label>
+        <select id="subCategory" name="subCategory" required>
+          <option value="" disabled selected>Select Sub Category</option>
+          <!-- Sub-category options -->
+        </select>
+      </div>
+      <!--<div class="form-group">
+        <label for="minorCategory">Minor-Category:</label>
+        <select id="minorCategory" name="minorCategory" required>
+          <option value="MinorCategory1">Minor-Category 1</option>
+          <option value="MinorCategory2">Minor-Category 2</option>
+          <option value="MinorCategory3">Minor-Category 3</option>
+        </select>
+      </div>-->
+      <!-- Scrap Status Dropdown -->
+      <div class="form-group">
+        <label for="scrapStatus">Scrap Status:</label>
+        <select id="scrapStatus" name="scrapStatus" required>
+          <option value="" disabled selected>Select Scrap Status</option>
+          <option value="UNSTACKED SCRAP A">UNSTACKED SCRAP A</option>
+          <option value="NEWLY IDENTIFIED SCARP">NEWLY IDENTIFIED SCARP</option>
+          <option value="VR/SCR PENDING">VR/SCR PENDING</option>
+          <option value="JVR/SCR UNDER PROCESS">JVR/SCR UNDER PROCESS</option>
+          <option value="JVR/SCR CREATED">JVR/SCR CREATED</option>
+          <option value="UNDER AUCTION PROCESS">UNDER AUCTION PROCESS</option>
+          <option value="SCRAP SOLD">SCRAP SOLD</option>
+          <option value="WAITING FOR DELIVERY">WAITING FOR DELIVERY</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="nearbyRailwayStation">Nearby Railway Station:</label>
-        <input type="text" id="nearbyRailwayStation" name="nearbyRailwayStation" required>
-      </div>
-      <div class="form-group">
-        <label for="photos">Photos:</label>
-        <input type="file" id="photos" name="photos" accept="image/*" required>
-      </div>
-      <div class="form-group">
-        <label for="videos">Videos:</label>
-        <input type="file" id="videos" name="videos" accept="video/*" required>
-      </div>
-      <div class="form-group">
-        <label for="typeOfItem">Type of Item:</label>
-        <input type="text" id="typeOfItem" name="typeOfItem" required>
-      </div>
-      <div class="form-group">
-        <label for="status">Status:</label>
-        <input type="text" id="status" name="status" required>
-      </div>
-      <div class="form-group">
-        <label for="itemName">Name of Item:</label>
-        <input type="text" id="itemName" name="itemName" required>
-      </div>
-      <div class="form-group">
-        <label for="verifiedScrap">Verified as Scrap:</label>
+        <label for="verifiedScrap">Whether Verified as Scrap:</label>
         <select id="verifiedScrap" name="verifiedScrap" required>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
-          <option value="NaN">NaN</option>
+          <!--<option value="NaN">NaN</option>-->
         </select>
       </div>
+      <!-- Pending with Department Dropdown -->
       <div class="form-group">
         <label for="pendingDepartment">Pending with Department:</label>
-        <input type="text" id="pendingDepartment" name="pendingDepartment" required>
-      </div>
-      <div class="form-group">
-        <label for="lotNoEngineering">Lot No. Engineering:</label>
-        <input type="text" id="lotNoEngineering" name="lotNoEngineering" required>
-      </div>
-      <div class="form-group">
-        <label for="lotNoStores">Lot No. Stores:</label>
-        <input type="text" id="lotNoStores" name="lotNoStores" required>
-      </div>
-      <div class="form-group">
-        <label for="auctionDate">Auction Date Given:</label>
-        <select id="auctionDate" name="auctionDate" required>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-          <option value="NaN">NaN</option>
+        <select id="pendingDepartment" name="pendingDepartment" required>
+          <option value="" disabled selected>Select Pending with Department</option>
+          <option value="Sr. DEN(PRCL)">Sr. DEN(PRCL)</option>
+          <option value="Sr. DEN(HQ)">Sr. DEN(HQ)</option>
+          <option value="DEN(C)">DEN(C)</option>
+          <option value="DEN(W)">DEN(W)</option>
         </select>
-      </div>
-      <div class="form-group">
-        <label for="fdpEnds">FDP Date:</label>
-        <input type="text" id="fdpEnds" name="fdpEnds" required placeholder="DDMMYYYY (e.g., 26072023)">
-      </div>
-      <div class="form-group">
-        <label for="phoneNo">Phone No:</label>
-        <input type="text" id="phoneNo" name="phoneNo" required>
       </div>
       <div class="form-group">
         <label for="custodian">Custodian:</label>
-        <input type="text" id="custodian" name="custodian" required>
+        <select id="custodian" name="custodian" required>
+            <option value="" disabled selected>Select Custodian</option>
+            <option value="SSE(P)PBR">SSE(P)PBR</option>
+            <option value="SSE(P)SVKD">SSE(P)SVKD</option>
+            <option value="SSE(P)TAV">SSE(P)TAV</option>
+            <option value="SSE(P)UA">SSE(P)UA</option>
+            <option value="SSE(P)VRL">SSE(P)VRL</option>
+            <option value="SSE(P)VSW">SSE(P)VSW</option>
+            <option value="SSE(P)WC">SSE(P)WC</option>
+
+          </select>
       </div>
       <div class="form-group">
-        <label for="approxWeight">Approximate Weight:</label>
+        <label for="custodianContact">Custodian Contact No.:</label>
+        <input type="text" id="custodianContact" name="custodianContact" required>
+      </div>
+      <div class="form-group">
+        <label for="approxWeight">Approximate Weight of Scrap (in MT):</label>
         <input type="text" id="approxWeight" name="approxWeight" required>
       </div>
       <div class="form-group">
-        <label for="approxRate">Approximate Rate:</label>
+        <label for="approxRate">Approximate Rate of Scrap (in Lakhs):</label>
         <input type="text" id="approxRate" name="approxRate" required>
+      </div>
+      <div class="form-group">
+        <label for="remarks">Remarks:</label>
+        <input type="text" id="remarks" name="remarks" required>
       </div>
       <div class="form-group" style="grid-column: 2;">
         <input type="submit" value="Submit">
       </div>
-
     </form>
   </div>
+  <!-- Your JavaScript -->
+  <script>
+    const subCategoryOptions = {
+      "DEPOT FERROUS": ["Select Sub Category", "Cl", "MS", "ss"],
+      "DEPOT NON FERROUS": ["Select Sub Category", "ALUMINIUM", "BRASS", "COPPER", "HAZARDOUS", "SLAGS", "we"],
+      "DEPOT MISCELLENEOUS": ["Select Sub Category", "CLOTH", "E-WASTE", "ELECTRICAL FITTINGS", "LEATHER", "MACHINES & PLANT", "PAPER", "PLASTIC-PVC", "RUBBER", "TOOLS", "WASTE OIL-LUBRICANT", "WOODEN"],
+      "OTHERS": ["Select Sub Category", "OTHERS CLOTH", "OTHERS FERROUS", "OTHERS LUB", "OTHERS MACHINES", "OTHERS MISC", "OTHERS NON-FERROUS", "OTHERS PAPER", "OTHERS PVC", "OTHERS RUBBER", "OTHERS STRUCTURE", "OTHERS-DEMU", "OTHERS-MEMU"],
+      "P-WAY": ["Select Sub Category", "P-WAY C1(MT)", "P-WAY C.L(NUMBER)", "P-WAY MS(MT)", "P-WAY MS(NUMBER)", "P-WAY OTHERS(MT)", "P-WAY PSC SLEEPERS", "P-WAY RAILS(METER)", "P-WAY RAILS(MT)", "P-WAY WOODEN(MT)"],
+      "ROLLING STOCK": ["Select Sub Category", "COACHES", "Loco", "WAGON"],
+      // ... Repeat this for any other categories you want to include
+    };
+
+    const categoryDropdown = document.getElementById("categoryDropdown");
+    const subCategorySelect = document.getElementById("subCategory");
+
+    categoryDropdown.addEventListener("change", function () {
+      const selectedCategory = categoryDropdown.value;
+      const subCategories = subCategoryOptions[selectedCategory] || [];
+
+      subCategorySelect.innerHTML = "";
+      subCategories.forEach(subCategory => {
+        const option = document.createElement("option");
+        option.value = subCategory;
+        option.textContent = subCategory;
+        subCategorySelect.appendChild(option);
+      });
+    });
+  </script>
+
 </body>
 </html>
